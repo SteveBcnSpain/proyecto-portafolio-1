@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Carrito{% endblock %}
+
+{% block content %}
+<h1>Carrito de compras</h1>
+
+{% if carrito.carrito %}
+<table>
+    <tr>
+        <th>Producto</th>
+        <th>Precio</th>
+        <th>Cantidad</th>
+        <th>Total</th>
+        <th>Acciones</th>
+    </tr>
+
+    {% for item in carrito %}
+    <tr>
+        <td>{{ item.producto.nombre }}</td>
+        <td>{{ item.precio }} €</td>
+        <td>{{ item.cantidad }}</td>
+        <td>{{ item.total }} €</td>
+        <td>
+            <a href="{% url 'agregar_al_carrito' item.producto.id %}">+</a>
+            <a href="{% url 'restar_producto' item.producto.id %}">−</a>
+            <a href="{% url 'eliminar_producto' item.producto.id %}">🗑</a>
+            <a href="{% url 'finalizar_compra' %}" class="btn btn-success">Finalizar compra</a>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+
+<p><strong>Total:</strong> {{ carrito.total_carrito }} €</p>
+
+<a href="{% url 'limpiar_carrito' %}" class="btn">Vaciar carrito</a>
+<a href="{% url 'lista_productos' %}" class="btn">Seguir comprando</a>
+
+{% else %}
+<p>El carrito está vacío.</p>
+<a href="{% url 'lista_productos' %}" class="btn">Ver productos</a>
+{% endif %}
+{% endblock %}

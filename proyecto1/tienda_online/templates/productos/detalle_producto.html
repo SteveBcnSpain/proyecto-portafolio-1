@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ producto.nombre }}</title>
+</head>
+<body>
+<h1>{{ producto.nombre }}</h1>
+<p>{{ producto.descripcion }}</p>
+<p>Precio: {{ producto.precio }} €</p>
+{% if producto.imagen %}
+    <img src="{{ producto.imagen.url }}" alt="{{ producto.nombre }}">
+{% endif %}
+<a href="/">Volver</a>
+</body>
+</html>

@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<h2>Productos</h2>
+
+<div class="grid-productos">
+    {% for producto in productos %}
+        <div class="producto-card">
+
+            <h3>{{ producto.nombre }}</h3>
+
+            {% if producto.imagen %}
+                <img src="{{ producto.imagen.url }}" class="producto-img">
+            {% else %}
+                <img src="{% static 'productos/no-imagen.png' %}" class="producto-img">
+            {% endif %}
+
+            <p class="precio">{{ producto.precio }} €</p>
+            <p class="stock">Stock: {{ producto.stock }}</p>
+
+            <a href="{% url 'detalle_producto' producto.id %}" class="btn">
+                Ver descripción
+            </a>
+
+            <a href="{% url 'agregar_al_carrito' producto.id %}" class="btn btn-carrito">
+                Añadir al carrito
+            </a>
+
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}
